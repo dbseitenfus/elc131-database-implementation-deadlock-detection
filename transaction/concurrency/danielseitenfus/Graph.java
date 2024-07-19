@@ -6,23 +6,25 @@ import java.util.List;
 public class Graph {
     List<Node> nodes;
 
-    Graph() {
+    public Graph() {
         this.nodes = new ArrayList<>();
     }
 
-    public Node addNode(String label) {
-        Node node = new Node(label);
+    public Node addNode(int id) {
+        if(nodeExists(id)) return null;
+
+        Node node = new Node(id);
         nodes.add(node);
         return node;
     }
 
-    public void addEdge(Node from, Node to, String value) {
+    public void addEdge(Node from, Node to, int value) {
         addEdge(from, new Edge(from, to, value));
     }
 
-    public void addEdge(String fromLabel, String toLabel, String value) {
-        Node from = getNode(fromLabel);
-        Node to = getNode(toLabel);
+    public void addEdge(int fromId, int toId, int value) {
+        Node from = getNode(fromId);
+        Node to = getNode(toId);
         addEdge(from, new Edge(from, to, value));
     }
 
@@ -30,12 +32,50 @@ public class Graph {
         node.addEdge(edge);
     }
 
-    Node getNode(String label) {
+    boolean nodeExists(int id) {
+        return getNode(id) != null;
+    }
+
+    Node getNode(int id) {
         for(Node node : this.nodes) {
-            if (label.equals(node.getLabel())) {
+            if (id == node.getId()) {
                 return node;
             }
         }
         return null;
+    }
+
+    boolean detectCycle() {
+        boolean[] visited = new boolean[nodes.size()];
+        boolean[] recStack = new boolean[nodes.size()];
+
+        for (Node node : nodes) {
+            if (detectCycleUtil(node, visited, recStack)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean detectCycleUtil(Node node, boolean[] visited, boolean[] recStack) {
+        int index = nodes.indexOf(node);
+        if (recStack[index]) {
+            return true;
+        }
+        if (visited[index]) {
+            return false;
+        }
+
+        visited[index] = true;
+        recStack[index] = true;
+
+        for (Edge edge : node.getEdges()) {
+            if (detectCycleUtil(edge.getTo(), visited, recStack)) {
+                return true;
+            }
+        }
+
+        recStack[index] = false;
+        return false;
     }
 }

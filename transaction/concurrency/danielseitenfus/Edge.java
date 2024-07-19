@@ -3,9 +3,9 @@ package ibd.transaction.concurrency.danielseitenfus;
 public class Edge {
     private final Node from;
     private final Node to;
-    private final String value;
+    private int value;
 
-    Edge(Node from, Node to, String value) {
+    public Edge(Node from, Node to, int value) {
         this.from = from;
         this.to = to;
         this.value = value;
@@ -19,7 +19,7 @@ public class Edge {
         return to;
     }
 
-    public String getValue() {
+    public int getValue() {
         return value;
     }
 }

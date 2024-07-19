@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Node {
-    private final String label;
+    private final int id;
     private final List<Edge> edges;
 
-    Node(String label) {
-        this.label = label;
+    public Node(int id) {
+        this.id = id;
         edges = new ArrayList<>();
     }
 
@@ -16,8 +16,8 @@ public class Node {
         edges.add(edge);
     }
 
-    public String getLabel() {
-        return label;
+    public int getId() {
+        return id;
     }
 
     public List<Edge> getEdges() {
