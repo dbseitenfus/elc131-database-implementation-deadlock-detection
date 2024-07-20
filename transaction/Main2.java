@@ -6,6 +6,7 @@
 package ibd.transaction;
 
 import ibd.table.Table;
+import ibd.transaction.concurrency.DanielSeitenfusConcurrencyManager;
 import ibd.transaction.instruction.SingleReadInstruction;
 import ibd.transaction.instruction.SingleUpdateInstruction;
 import ibd.transaction.concurrency.ConcurrencyManager;
@@ -149,13 +150,12 @@ public class Main2 {
     }
 
 
-
     ConcurrencyManager manager;
     public ConcurrencyManager getManager(boolean recreateManager) throws Exception{
         if (recreateManager)
-            return new LockBasedConcurrencyManager();
+            return new DanielSeitenfusConcurrencyManager();
         if (manager==null){
-            manager = new LockBasedConcurrencyManager();
+            manager = new DanielSeitenfusConcurrencyManager();
         }
         return manager;
 

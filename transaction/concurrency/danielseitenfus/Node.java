@@ -1,14 +1,16 @@
 package ibd.transaction.concurrency.danielseitenfus;
 
+import ibd.transaction.Transaction;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Node {
-    private final int id;
+    private final Transaction transaction;
     private final List<Edge> edges;
 
-    public Node(int id) {
-        this.id = id;
+    public Node(Transaction transaction) {
+        this.transaction = transaction;
         edges = new ArrayList<>();
     }
 
@@ -16,8 +18,8 @@ public class Node {
         edges.add(edge);
     }
 
-    public int getId() {
-        return id;
+    public Transaction getTransaction() {
+        return transaction;
     }
 
     public List<Edge> getEdges() {

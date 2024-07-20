@@ -1,11 +1,13 @@
 package ibd.transaction.concurrency.danielseitenfus;
 
+import ibd.transaction.concurrency.Item;
+
 public class Edge {
     private final Node from;
     private final Node to;
-    private int value;
+    private Item value;
 
-    public Edge(Node from, Node to, int value) {
+    public Edge(Node from, Node to, Item value) {
         this.from = from;
         this.to = to;
         this.value = value;
@@ -19,7 +21,7 @@ public class Edge {
         return to;
     }
 
-    public int getValue() {
+    public Item getValue() {
         return value;
     }
 }
